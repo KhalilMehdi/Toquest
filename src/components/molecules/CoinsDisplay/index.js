@@ -1,12 +1,12 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { auth, db } from "@utils/firebase";
 import { doc, onSnapshot } from "firebase/firestore";
-import { View, StyleSheet, PanResponder, Animated } from "react-native";
+import { View, StyleSheet } from "react-native";
+import CustomImage from "@atoms/CustomImage";
 import CustomText from "@atoms/CustomText";
 
 const CoinsDisplay = () => {
   const [coins, setCoins] = useState(0);
-  const pan = useRef(new Animated.ValueXY()).current;
 
   useEffect(() => {
     const user = auth.currentUser;
@@ -31,51 +31,31 @@ const CoinsDisplay = () => {
     }
   }, []);
 
-  const panResponder = useRef(
-    PanResponder.create({
-      onStartShouldSetPanResponder: () => true,
-      onPanResponderMove: Animated.event([null, { dx: pan.x, dy: pan.y }], {
-        useNativeDriver: false,
-      }),
-      onPanResponderGrant: () => {
-        pan.setOffset({
-          x: pan.x._value,
-          y: pan.y._value,
-        });
-        pan.setValue({ x: 0, y: 0 });
-      },
-      onPanResponderRelease: () => {
-        pan.flattenOffset();
-      },
-    })
-  ).current;
-
   return (
-    <Animated.View
-      style={[
-        styles.container,
-        {
-          transform: [{ translateX: pan.x }, { translateY: pan.y }],
-        },
-      ]}
-      {...panResponder.panHandlers}
-    >
-      <CustomText>Pièces : {coins}</CustomText>
-    </Animated.View>
+    <View style={styles.container}>
+      <View style={styles.coinContainer}>
+        <CustomText>{coins}</CustomText>
+        <CustomImage imageName="coin" style={styles.image} />
+      </View>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     position: "absolute",
-    bottom: 50,
-    left: 20,
-    right: 20,
-    backgroundColor: "#fff",
+    top: 100,
+    right: 15,
     borderRadius: 2,
-    padding: 10,
-    elevation: 2,
-    zIndex: 999,
+  },
+  coinContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row",
+  },
+  image: {
+    width: 40,
+    height: 40,
   },
 });
 

@@ -1,11 +1,13 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
 import Home from "@organisms/Home";
+import CoinsDisplay from "@molecules/CoinsDisplay";
 
 const HomeScreen = () => {
   return (
     <View style={styles.container}>
       <Home />
+      <CoinsDisplay />
     </View>
   );
 };
