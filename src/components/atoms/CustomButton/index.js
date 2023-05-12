@@ -9,7 +9,7 @@ const CustomButton = ({ onPress, title, customColor }) => {
       justifyContent: "center",
       width: 176,
       height: 40,
-      margin: 16,
+      margin: 4,
       backgroundColor: customColor || "black",
     },
     buttonAfter: {

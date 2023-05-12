@@ -7,7 +7,7 @@ const RewardScreen = () => {
   return (
     <View style={styles.container}>
       <Reward />
-      <CoinsDisplay />
+      <CoinsDisplay userCoins />
     </View>
   );
 };

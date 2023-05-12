@@ -7,7 +7,7 @@ const HomeScreen = () => {
   return (
     <View style={styles.container}>
       <Home />
-      <CoinsDisplay />
+      <CoinsDisplay userCoins />
     </View>
   );
 };

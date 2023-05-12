@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { View, StyleSheet } from "react-native";
+import CoinsDisplay from "@molecules/CoinsDisplay";
 import CustomButton from "@atoms/CustomButton";
 import CustomText from "@atoms/CustomText";
 
@@ -28,7 +29,7 @@ const QuestCard = ({
         <CustomText style={styles.description}>{description}</CustomText>
       </View>
       <View style={styles.coinsButtonContainer}>
-        <CustomText style={styles.coinsNumber}>Coins: {coinsNumber}</CustomText>
+        <CoinsDisplay coinsNumber={coinsNumber} />
         {withButton && (
           <CustomButton
             onPress={handleToggleAccept}
@@ -70,7 +71,6 @@ const styles = StyleSheet.create({
     marginTop: 16,
     flexDirection: "row",
     width: "100%",
-    alignItems: "center",
     justifyContent: "space-between",
   },
 });

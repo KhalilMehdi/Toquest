@@ -5,57 +5,54 @@ import { View, StyleSheet } from "react-native";
 import CustomImage from "@atoms/CustomImage";
 import CustomText from "@atoms/CustomText";
 
-const CoinsDisplay = () => {
-  const [coins, setCoins] = useState(0);
+const CoinsDisplay = ({ coinsNumber, userCoins }) => {
+  const [userCoinsNumber, setUserCoinsNumber] = useState(0);
 
   useEffect(() => {
-    const user = auth.currentUser;
+    if (userCoins) {
+      const user = auth.currentUser;
+      if (user) {
+        const userDocRef = doc(db, "users", user.uid);
+        const unsubscribe = onSnapshot(userDocRef, (userDocSnap) => {
+          if (userDocSnap.exists()) {
+            const userData = userDocSnap.data();
+            setUserCoinsNumber(userData.coins);
+          } else {
+            console.log("No document found!");
+          }
+        });
 
-    if (user) {
-      const userDocRef = doc(db, "users", user.uid);
-
-      const unsubscribe = onSnapshot(userDocRef, (userDocSnap) => {
-        if (userDocSnap.exists()) {
-          const userData = userDocSnap.data();
-          setCoins(userData.coins);
-        } else {
-          console.log("Aucun document trouvé !");
-        }
-      });
-
-      return () => {
-        unsubscribe();
-      };
-    } else {
-      console.log("Utilisateur non connecté.");
+        return () => {
+          unsubscribe();
+        };
+      } else {
+        console.log("User not logged in.");
+      }
     }
-  }, []);
+  }, [userCoins]);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.coinContainer}>
-        <CustomText>{coins}</CustomText>
-        <CustomImage imageName="coin" style={styles.image} />
-      </View>
+    <View style={styles.coinsIconContainer}>
+      <CustomText style={styles.coinsNumber}>
+        {userCoins ? userCoinsNumber : coinsNumber}
+      </CustomText>
+      <CustomImage imageName="coin" style={styles.image} />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    position: "absolute",
-    top: 100,
-    right: 15,
-    borderRadius: 2,
-  },
-  coinContainer: {
-    justifyContent: "center",
-    alignItems: "center",
+  coinsIconContainer: {
     flexDirection: "row",
+    alignItems: "center",
+    marginLeft: 16,
+  },
+  coinsNumber: {
+    marginRight: 5,
   },
   image: {
-    width: 40,
-    height: 40,
+    width: 30,
+    height: 30,
   },
 });
 
