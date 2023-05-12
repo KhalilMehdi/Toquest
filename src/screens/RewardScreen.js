@@ -1,13 +1,11 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
 import Reward from "@organisms/Reward";
-import CoinsDisplay from "@molecules/CoinsDisplay";
 
 const RewardScreen = () => {
   return (
     <View style={styles.container}>
       <Reward />
-      <CoinsDisplay userCoins />
     </View>
   );
 };

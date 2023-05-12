@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
-import { StyleSheet, ScrollView } from "react-native";
+import { View, StyleSheet, ScrollView } from "react-native";
 import { auth, db } from "@utils/firebase";
 import { collection, doc, getDocs, onSnapshot } from "firebase/firestore";
+import CoinsDisplay from "@molecules/CoinsDisplay";
 import RewardBox from "@atoms/RewardBox";
 
 const Reward = () => {
@@ -53,34 +54,48 @@ const Reward = () => {
   );
 
   return (
-    <ScrollView
-      contentContainerStyle={styles.container}
-      showsVerticalScrollIndicator={false}
-      ref={scrollViewRef}
-      onLayout={() => {
-        if (scrollViewRef.current) {
-          scrollViewRef.current.scrollToEnd({ animated: false });
-        }
-      }}
-    >
-      {rewards.map((reward, index) => (
-        <RewardBox
-          key={index}
-          points={reward.points}
-          coins={coins}
-          recompense={reward.recompense}
-        />
-      ))}
-    </ScrollView>
+    <View style={styles.container}>
+      <ScrollView
+        contentContainerStyle={styles.scrollViewContainer}
+        showsVerticalScrollIndicator={false}
+        ref={scrollViewRef}
+        onLayout={() => {
+          if (scrollViewRef.current) {
+            scrollViewRef.current.scrollToEnd({ animated: false });
+          }
+        }}
+      >
+        {rewards.map((reward, index) => (
+          <RewardBox
+            key={index}
+            points={reward.points}
+            coins={coins}
+            recompense={reward.recompense}
+          />
+        ))}
+      </ScrollView>
+      <View style={styles.coinsDisplayContainer}>
+        <CoinsDisplay userCoins style={styles.coinsDisplay} />
+      </View>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+  },
+  scrollViewContainer: {
     flexGrow: 1,
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "column",
+  },
+  coinsDisplayContainer: {
+    position: "absolute",
+    top: 100,
+    right: -30,
+    zIndex: 1,
   },
 });
 

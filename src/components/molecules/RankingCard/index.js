@@ -1,12 +1,13 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+import CoinsDisplay from "@molecules/CoinsDisplay";
 
 const RankingCard = ({ username, coins, rank }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.rank}>{rank}</Text>
       <Text style={styles.username}>{username}</Text>
-      <Text style={styles.coins}>{coins} Coins</Text>
+      <CoinsDisplay coinsNumber={coins} />
     </View>
   );
 };
