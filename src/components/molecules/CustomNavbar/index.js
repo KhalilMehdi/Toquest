@@ -1,14 +1,13 @@
 import React from "react";
 import { View, TouchableOpacity, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import CustomIcon from "@atoms/CustomIcon";
-import CustomText from "@atoms/CustomText";
+import CustomImage from "@atoms/CustomImage";
 
 const CustomNavbar = ({ selected, setSelected }) => {
   const navigation = useNavigation();
   const tabs = [
-    { title: "Quêtes", screen: "Quest", iconName: "parchment" },
-    { title: "Récompenses", screen: "Reward", iconName: "chest" },
+    { title: "Quetes", screen: "Quest", iconName: "quest" },
+    { title: "Recompenses", screen: "Reward", iconName: "chest" },
     { title: "Home", screen: "Home", iconName: "home" },
     { title: "Classement", screen: "Ranking", iconName: "ranking" },
     { title: "Profil", screen: "Profile", iconName: "profile" },
@@ -25,13 +24,7 @@ const CustomNavbar = ({ selected, setSelected }) => {
           }}
           style={[styles.tab, selected === tab.screen && styles.selectedTab]}
         >
-          <CustomIcon
-            iconName={tab.iconName}
-            width={40}
-            height={30}
-            color="black"
-          />
-          <CustomText style={styles.tabText}></CustomText>
+          <CustomImage imageName={tab.iconName} style={styles.image} />
         </TouchableOpacity>
       ))}
     </View>
@@ -47,10 +40,13 @@ const styles = StyleSheet.create({
     paddingBottom: 8,
     paddingTop: 10,
   },
-
+  image: {
+    width: 32,
+    height: 32,
+    margin: 4,
+  },
   selectedTab: {
     borderBottomWidth: 4,
-    borderBottomColor: "",
   },
 });
 

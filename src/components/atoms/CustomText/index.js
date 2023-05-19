@@ -7,7 +7,6 @@ const CustomText = (props) => {
   const [fontLoaded, setFontLoaded] = useState(false);
   const { font = "pixel", navigateTo } = props;
   const navigation = useNavigation();
-
   const fonts = {
     pixel: require("assets/fonts/pixel-font.ttf"),
   };

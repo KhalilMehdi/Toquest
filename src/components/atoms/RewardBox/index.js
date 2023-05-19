@@ -2,37 +2,28 @@ import React from "react";
 import { View, StyleSheet } from "react-native";
 import CustomText from "@atoms/CustomText";
 
-const RewardBox = ({ points, coins, recompense }) => {
-  const isUnlocked = coins >= points;
-  const isReward = recompense !== null;
-
-  let backgroundColor;
-  if (isUnlocked && isReward) {
-    backgroundColor = "green";
-  } else if (isUnlocked) {
-    backgroundColor = "red";
-  } else {
-    backgroundColor = "gray";
-  }
-
+const RewardBox = ({ points, gift }) => {
   const styles = StyleSheet.create({
     container: {
-      width: 296,
-      height: 48,
-      margin: 16,
-      backgroundColor: backgroundColor,
+      width: 300,
+      height: 60,
+      margin: 4,
+      backgroundColor: "lightgray",
       justifyContent: "center",
       alignItems: "center",
+      borderWidth: 2,
+      borderColor: "black",
     },
     text: {
-      fontSize: 20,
-      color: "white",
+      fontSize: 12,
+      color: "black",
     },
   });
 
   return (
     <View style={styles.container}>
-      <CustomText style={styles.text}>{points} points</CustomText>
+      <CustomText style={styles.text}>{gift}</CustomText>
+      <CustomText style={styles.text}>Points required: {points}</CustomText>
     </View>
   );
 };
