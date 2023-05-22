@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet } from "react-native";
+import { Alert, View, StyleSheet } from "react-native";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, getDoc, setDoc } from "@firebase/firestore";
 import { auth, db } from "@utils/firebase";
@@ -14,14 +14,30 @@ export default function SignUp({ setIsLoggedIn }) {
   const [username, setUsername] = useState("");
 
   const handleSignUp = async () => {
-    const userEmail = !email.includes("@") ? `${username}@example.com` : email;
+    if (username === "") {
+      Alert.alert("Erreur", "Veuillez entrer un nom d'utilisateur");
+      return;
+    }
+
+    if (email === "" || !email.includes("@")) {
+      Alert.alert("Erreur", "Veuillez entrer une adresse email valide");
+      return;
+    }
+
+    if (password === "" || password !== confirmPassword) {
+      Alert.alert(
+        "Erreur",
+        "Les mots de passe ne correspondent pas ou sont vides"
+      );
+      return;
+    }
 
     try {
       console.log("Starting sign up process...");
 
       const userCredential = await createUserWithEmailAndPassword(
         auth,
-        userEmail,
+        email,
         password
       );
       const user = userCredential.user;
@@ -45,6 +61,7 @@ export default function SignUp({ setIsLoggedIn }) {
       }
     } catch (error) {
       console.log("Sign up failed:", error.message);
+      Alert.alert("Erreur", "Inscription échouée: " + error.message);
     }
   };
 
@@ -55,27 +72,27 @@ export default function SignUp({ setIsLoggedIn }) {
         label="Nom d'utilisateur"
         value={username}
         placeholder="Entrez votre nom d'utilisateur"
-        onChange={(e) => setUsername(e)}
+        onChangeText={(text) => setUsername(text)}
       />
       <TextField
         label="Email"
         value={email}
         placeholder="Entrez votre adresse e-mail"
-        onChange={(e) => setEmail(e)}
+        onChangeText={(text) => setEmail(text)}
       />
       <TextField
         label="Mot de passe"
         value={password}
         placeholder="Entrez votre mot de passe"
         secureTextEntry={true}
-        onChange={(e) => setPassword(e)}
+        onChangeText={(text) => setPassword(text)}
       />
       <TextField
         label="Confirmer le mot de passe"
         value={confirmPassword}
         placeholder="Confirmez votre mot de passe"
         secureTextEntry={true}
-        onChange={(e) => setConfirmPassword(e)}
+        onChangeText={(text) => setConfirmPassword(text)}
       />
       <CustomButton onPress={handleSignUp} title="S'inscrire" />
     </View>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
+import { Alert, View, StyleSheet } from "react-native";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "@utils/firebase";
-import { View, StyleSheet } from "react-native";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import CustomTextInput from "@atoms/CustomTextInput";
 import CustomText from "@atoms/CustomText";
@@ -12,12 +12,26 @@ export default function LoginScreen({ setIsLoggedIn }) {
   const [password, setPassword] = useState("");
 
   const handleSignIn = async () => {
+    if (email === "") {
+      Alert.alert(
+        "Erreur",
+        "Veuillez entrer un nom d'utilisateur ou une adresse email"
+      );
+      return;
+    }
+
+    if (password === "") {
+      Alert.alert("Erreur", "Veuillez entrer un mot de passe");
+      return;
+    }
+
     console.log("Tentative de connexion...");
 
     let userEmail = email;
     if (!email.includes("@")) {
       userEmail = await getEmailFromUsername(email);
       if (!userEmail) {
+        Alert.alert("Erreur", "Nom d'utilisateur introuvable");
         console.log("Nom d'utilisateur introuvable");
         return;
       }
@@ -30,6 +44,7 @@ export default function LoginScreen({ setIsLoggedIn }) {
       })
       .catch((error) => {
         const errorMessage = error.message;
+        Alert.alert("Erreur", "Échec de la connexion: " + errorMessage);
         console.log("Échec de la connexion :", errorMessage);
       });
   };
@@ -53,20 +68,20 @@ export default function LoginScreen({ setIsLoggedIn }) {
         label="Nom d'utilisateur ou Email"
         value={email}
         placeholder="Entrez votre nom d'utilisateur ou Email"
-        onChange={(e) => setEmail(e)}
+        onChangeText={(text) => setEmail(text)}
       />
       <CustomTextInput
         label="Mot de passe"
         value={password}
         placeholder="Entrez votre mot de passe"
         secureTextEntry={true}
-        onChange={(e) => setPassword(e)}
+        onChangeText={(text) => setPassword(text)}
       />
       <View style={styles.actionContainer}>
+        <CustomButton onPress={() => handleSignIn()} title="connexion" />
         <CustomText navigateTo="SignUp" style={styles.linkText}>
-          Créer un compte
+          Creer un compte
         </CustomText>
-        <CustomButton onPress={() => handleSignIn()} title="Se connecter" />
       </View>
     </View>
   );
@@ -83,14 +98,13 @@ const styles = StyleSheet.create({
     marginBottom: 32,
   },
   actionContainer: {
-    flexDirection: "row",
+    flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 16,
   },
   linkText: {
     fontSize: 16,
     color: "#5DC8D0",
-    marginLeft: 16,
+    marginTop: 16,
   },
 });

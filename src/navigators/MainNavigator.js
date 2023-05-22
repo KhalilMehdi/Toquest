@@ -8,11 +8,16 @@ import RewardScreen from "../screens/RewardScreen";
 
 const Stack = createNativeStackNavigator();
 
-const MainNavigator = () => {
+const MainNavigator = ({ handleLogout }) => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen name="Profile" component={ProfileScreen} />
+      <Stack.Screen
+        name="Profile"
+        children={(props) => (
+          <ProfileScreen {...props} handleLogout={handleLogout} />
+        )}
+      />
       <Stack.Screen name="Quest" component={QuestScreen} />
       <Stack.Screen name="Reward" component={RewardScreen} />
       <Stack.Screen name="Ranking" component={RankingScreen} />

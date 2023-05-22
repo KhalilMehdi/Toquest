@@ -1,12 +1,13 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import CoinsDisplay from "@molecules/CoinsDisplay";
+import CustomText from "@atoms/CustomText";
 
 const RankingCard = ({ username, coins, rank }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.rank}>{rank}</Text>
-      <Text style={styles.username}>{username}</Text>
+      <CustomText style={styles.rank}>{rank}</CustomText>
+      <CustomText style={styles.username}>{username}</CustomText>
       <CoinsDisplay coinsNumber={coins} />
     </View>
   );
@@ -20,7 +21,9 @@ const styles = StyleSheet.create({
     padding: 16,
     elevation: 2,
     marginVertical: 5,
-    backgroundColor: "#f9f9f9",
+    borderWidth: 2,
+    borderColor: "black",
+    backgroundColor: "lightgray",
   },
   rank: {
     fontSize: 24,

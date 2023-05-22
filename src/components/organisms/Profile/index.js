@@ -1,27 +1,21 @@
-import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Alert, Image } from "react-native";
+import React, { useState, useEffect, useContext } from "react";
+import { View, StyleSheet, Alert, Image, TouchableOpacity } from "react-native";
 import { auth, db, storage } from "@utils/firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
-import {
-  updateEmail,
-  sendPasswordResetEmail,
-  EmailAuthProvider,
-  reauthenticateWithCredential,
-  updatePassword,
-} from "firebase/auth";
+import { updateEmail, sendPasswordResetEmail } from "firebase/auth";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import ImagePicker from "@molecules/CustomImagePicker";
 import TextField from "@atoms/CustomTextInput";
 import CustomButton from "@atoms/CustomButton";
 import CustomText from "@atoms/CustomText";
+import AuthContext from "@context/authContext";
 
 const Profile = () => {
+  const { handleLogout } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const [profileImage, setProfileImage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-
   useEffect(() => {
     fetchUserData();
   }, []);
@@ -68,18 +62,11 @@ const Profile = () => {
   };
 
   const handleUpdateProfile = async () => {
-    if (password === "") {
-      Alert.alert("Erreur", "Veuillez entrer votre mot de passe actuel");
-      return;
-    }
-
     setIsLoading(true);
     const user = auth.currentUser;
     const userId = user.uid;
-    const credential = EmailAuthProvider.credential(user.email, password);
-    await reauthenticateWithCredential(user, credential);
+
     await updateEmail(user, email);
-    await updatePassword(user, password);
 
     await updateDoc(doc(db, "users", userId), {
       email: email,
@@ -119,21 +106,17 @@ const Profile = () => {
         placeholder="Email"
         onChange={(text) => setEmail(text)}
       />
-      <TextField
-        label="Mot de passe actuel"
-        value={password}
-        placeholder="Mot de passe actuel"
-        secureTextEntry
-        onChange={(text) => setPassword(text)}
-      />
       <CustomButton
         onPress={handleUpdateProfile}
         title="Appliquer"
         isLoading={isLoading}
       />
-      <CustomText onPress={handleResetPassword}>
-        Pour recevoir un mail de reinitialisation de mot de passe
-      </CustomText>
+      <TouchableOpacity onPress={handleResetPassword}>
+        <CustomText style={styles.passwordReset}>
+          Reinitialisation du mot de passe{" "}
+        </CustomText>
+      </TouchableOpacity>
+      <CustomButton onPress={handleLogout} title="Deconnexion" />
     </View>
   );
 };
@@ -156,8 +139,10 @@ const styles = StyleSheet.create({
   usernameText: {
     alignSelf: "flex-start",
   },
-  resetPasswordButton: {
-    backgroundColor: "red",
+  passwordReset: {
+    fontSize: 14,
+    color: "#5DC8D0",
+    marginTop: 16,
   },
 });
 

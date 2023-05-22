@@ -1,14 +1,14 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
+import CoinsDisplay from "@molecules/CoinsDisplay";
 import CustomImage from "@atoms/CustomImage";
 import CustomText from "@atoms/CustomText";
-import CoinsDisplay from "@molecules/CoinsDisplay";
 
 const HomeDisplay = () => {
   return (
     <View style={styles.container}>
+      <CustomText style={styles.title}>WWF</CustomText>
       <View style={styles.content}>
-        <CustomText style={styles.title}>WWF</CustomText>
         <CustomImage imageName="panda" style={styles.image} />
       </View>
       <View style={styles.coinsDisplay}>
@@ -29,17 +29,20 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   title: {
-    fontSize: 24,
-    marginBottom: 20,
+    fontSize: 48,
+    marginTop: 20,
+    color: "white",
   },
   image: {
     width: 200,
-    height: 250,
+    height: 260,
+    position: "absolute",
+    bottom: 0,
   },
   coinsDisplay: {
     position: "absolute",
     top: 100,
-    right: -90,
+    right: -140,
     zIndex: 1,
   },
 });

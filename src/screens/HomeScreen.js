@@ -1,12 +1,15 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
 import Home from "@organisms/Home";
+import BackgroundImage from "@atoms/BackgroundImage";
 
 const HomeScreen = () => {
   return (
-    <View style={styles.container}>
-      <Home />
-    </View>
+    <BackgroundImage imageKey="forest">
+      <View style={styles.container}>
+        <Home />
+      </View>
+    </BackgroundImage>
   );
 };
 

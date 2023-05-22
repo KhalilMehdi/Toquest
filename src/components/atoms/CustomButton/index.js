@@ -7,8 +7,8 @@ const CustomButton = ({ onPress, title, customColor }) => {
     buttonInner: {
       alignItems: "center",
       justifyContent: "center",
-      width: 176,
-      height: 40,
+      width: 144,
+      height: 36,
       margin: 4,
       backgroundColor: customColor || "black",
     },
@@ -31,7 +31,7 @@ const CustomButton = ({ onPress, title, customColor }) => {
       zIndex: -1,
     },
     buttonText: {
-      fontSize: 16,
+      fontSize: 14,
       color: "white",
     },
   });

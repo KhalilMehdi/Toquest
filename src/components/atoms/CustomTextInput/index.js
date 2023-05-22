@@ -4,7 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 import CustomText from "@atoms/CustomText";
 
 const CustomTextInput = ({
-  onChange,
+  onChangeText,
   value,
   placeholder,
   secureTextEntry,
@@ -25,7 +25,7 @@ const CustomTextInput = ({
           value={value}
           placeholder={placeholder}
           secureTextEntry={secureTextEntry && !isPasswordVisible}
-          onChangeText={onChange}
+          onChangeText={onChangeText}
         />
         {secureTextEntry && (
           <TouchableOpacity style={styles.eyeButton} onPress={handleEyePress}>
