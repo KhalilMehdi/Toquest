@@ -10,7 +10,7 @@ import {
   addDoc,
   getDoc,
 } from "firebase/firestore";
-import RewardCard from "@atoms/RewardCard";
+import RewardCard from "@molecules/RewardCard";
 import CustomText from "@atoms/CustomText";
 
 const Reward = () => {

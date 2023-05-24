@@ -7,12 +7,18 @@ import CustomText from "@atoms/CustomText";
 const HomeDisplay = () => {
   return (
     <View style={styles.container}>
-      <CustomText style={styles.title}>WWF</CustomText>
-      <View style={styles.content}>
-        <CustomImage imageName="panda" style={styles.image} />
+      <View style={styles.titleContainer}>
+        <CustomText style={styles.title}>WWF</CustomText>
       </View>
       <View style={styles.coinsDisplay}>
-        <CoinsDisplay userCoins />
+        <CoinsDisplay
+          userCoins
+          coinTextStyle={{ fontSize: 50, color: "white" }}
+          imageStyle={{ width: 60, height: 60 }}
+        />
+      </View>
+      <View style={styles.imageContainer}>
+        <CustomImage imageName="panda" style={styles.image} />
       </View>
     </View>
   );
@@ -21,29 +27,24 @@ const HomeDisplay = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    position: "relative",
-  },
-  content: {
-    flex: 1,
-    justifyContent: "center",
+    justifyContent: "space-between",
     alignItems: "center",
+  },
+  titleContainer: {
+    marginTop: 20,
   },
   title: {
     fontSize: 48,
-    marginTop: 20,
     color: "white",
   },
   image: {
     width: 200,
     height: 260,
-    position: "absolute",
-    bottom: 0,
   },
   coinsDisplay: {
-    position: "absolute",
-    top: 100,
-    right: -140,
-    zIndex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 100,
   },
 });
 

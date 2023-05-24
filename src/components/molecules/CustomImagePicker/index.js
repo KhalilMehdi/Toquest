@@ -34,7 +34,7 @@ const CustomImagePicker = ({ onImagePicked }) => {
 
   return (
     <View style={{ alignItems: "center", justifyContent: "center" }}>
-      <CustomButton title="Changer votre photo" onPress={pickImage} />
+      <CustomButton title="Changer" onPress={pickImage} />
     </View>
   );
 };

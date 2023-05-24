@@ -5,7 +5,12 @@ import { View, StyleSheet } from "react-native";
 import CustomImage from "@atoms/CustomImage";
 import CustomText from "@atoms/CustomText";
 
-const CoinsDisplay = ({ coinsNumber, userCoins }) => {
+const CoinsDisplay = ({
+  coinsNumber,
+  userCoins,
+  coinTextStyle,
+  imageStyle,
+}) => {
   const [userCoinsNumber, setUserCoinsNumber] = useState(0);
 
   useEffect(() => {
@@ -33,10 +38,15 @@ const CoinsDisplay = ({ coinsNumber, userCoins }) => {
 
   return (
     <View style={styles.coinsIconContainer}>
-      <CustomText style={styles.coinsNumber}>
+      <CustomText
+        style={StyleSheet.flatten([styles.coinsNumber, coinTextStyle])}
+      >
         {userCoins ? userCoinsNumber : coinsNumber}
       </CustomText>
-      <CustomImage imageName="coin" style={styles.image} />
+      <CustomImage
+        imageName="coin"
+        style={StyleSheet.flatten([styles.image, imageStyle])}
+      />
     </View>
   );
 };

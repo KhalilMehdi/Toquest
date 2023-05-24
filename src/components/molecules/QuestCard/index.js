@@ -45,7 +45,7 @@ const QuestCard = ({
 
 const styles = StyleSheet.create({
   card: {
-    elevation: 2,
+    elevation: 4,
     margin: 16,
     backgroundColor: "lightgrey",
     padding: 16,

@@ -20,11 +20,11 @@ const OnboardingScreen = (props) => {
     {
       title: "Bienvenue !",
       description:
-        "Ici, vous pouvez gagner des jetons en accomplissant des taches et des succes definis par vos associations.",
+        "Ici, vous pouvez gagner des pieces en accomplissant des taches et des succes definis par vos associations.",
     },
     {
       description:
-        "Les jetons sont crees et attribues par vos associations pour vous recompenser et vous motiver a accomplir plus de choses ensemble",
+        "Les pieces sont crees et attribues par vos associations pour vous recompenser et vous motiver a accomplir plus de choses ensemble",
     },
     {
       description:

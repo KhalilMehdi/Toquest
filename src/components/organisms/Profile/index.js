@@ -16,6 +16,7 @@ const Profile = () => {
   const [username, setUsername] = useState("");
   const [profileImage, setProfileImage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
     fetchUserData();
   }, []);
@@ -116,7 +117,14 @@ const Profile = () => {
           Reinitialisation du mot de passe{" "}
         </CustomText>
       </TouchableOpacity>
-      <CustomButton onPress={handleLogout} title="Deconnexion" />
+      <View style={styles.logoutContainer}>
+        <CustomButton
+          style={styles.logoutButton}
+          onPress={handleLogout}
+          title="Deconnexion"
+          customColor="red"
+        />
+      </View>
     </View>
   );
 };
@@ -126,6 +134,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     paddingHorizontal: 20,
+    backgroundColor: "white",
   },
   profileImage: {
     width: 200,
@@ -136,13 +145,18 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     margin: 16,
   },
-  usernameText: {
-    alignSelf: "flex-start",
+  logoutContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
+    marginTop: 8,
   },
   passwordReset: {
     fontSize: 14,
     color: "#5DC8D0",
     marginTop: 16,
+    marginBottom: 16,
+    alignSelf: "center",
   },
 });
 

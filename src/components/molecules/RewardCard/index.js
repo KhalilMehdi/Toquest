@@ -3,7 +3,7 @@ import { View, StyleSheet } from "react-native";
 import CustomButton from "@atoms/CustomButton";
 import CustomText from "@atoms/CustomText";
 
-const RewardBox = ({
+const RewardCard = ({
   isUnlocked,
   missingPoints,
   gift,
@@ -24,6 +24,7 @@ const RewardBox = ({
       borderWidth: 2,
       borderColor: "black",
       padding: 5,
+      elevation: 4,
     },
     progressBarContainer: {
       height: 20,
@@ -62,7 +63,7 @@ const RewardBox = ({
       ) : null}
       {!isUnlocked ? (
         <CustomText style={styles.text}>
-          il te manque {missingPoints} points !
+          il te manque {missingPoints} pieces !
         </CustomText>
       ) : null}
       {rewardGiven && <CustomText style={styles.text}>OBTENU</CustomText>}
@@ -70,4 +71,4 @@ const RewardBox = ({
   );
 };
 
-export default RewardBox;
+export default RewardCard;

@@ -6,7 +6,7 @@ import profile from "./navbar-icons/profile.png";
 import ranking from "./navbar-icons/ranking.png";
 import chest from "./navbar-icons/chest.png";
 import quest from "./navbar-icons/quest.png";
-import home from "./navbar-icons/quest.png";
+import home from "./navbar-icons/coin.png";
 
 import lock from "./icons/lock.png";
 
